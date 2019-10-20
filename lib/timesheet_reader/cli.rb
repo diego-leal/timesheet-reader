@@ -2,7 +2,13 @@ module TimesheetReader
     class CLI
         def run
             input = ARGV
-            puts Core.new(input).run
+            timesheet_info = TimesheetReader::Core.new(input).run
+
+            TimesheetReader::Formatter.new.report(
+                timesheet_info[:timesheets],
+                timesheet_info[:total_hours],
+                timesheet_info[:total_minutes],
+            )
         end
     end
 end
